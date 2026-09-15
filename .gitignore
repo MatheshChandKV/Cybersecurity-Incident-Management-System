@@ -1,0 +1,32 @@
+# Maven / Java build output
+target/
+bin/
+
+# Compiled Java classes
+*.class
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+.project
+.classpath
+.settings/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# Java package/build artifacts
+*.jar
+*.war
+*.ear
+
