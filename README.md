@@ -1,41 +1,44 @@
 # Cybersecurity Incident Management System
 
-A simple **Java-based Cybersecurity Incident Management System** for reporting, tracking, prioritizing, and investigating cybersecurity incidents.
+A **Java-based command-line application** for reporting, tracking, prioritizing, and investigating cybersecurity incidents.
 
-The project is designed as a **small academic Java application** that demonstrates Object-Oriented Programming, JDBC, MySQL, exception handling, collections, authentication, and basic cybersecurity concepts.
+The project is developed as a **small academic application** to demonstrate practical implementation of Java programming, Object-Oriented Programming, JDBC, MySQL, collections, exception handling, authentication, and basic cybersecurity concepts.
+
+The system allows users to report incidents, administrators to assign incidents to security analysts, and analysts to investigate and update incidents throughout their lifecycle.
 
 ---
 
 ## Features
 
-* User authentication
-* Role-based access
-* Three user roles:
-
-  * Admin
-  * Security Analyst
-  * User
-* Report cybersecurity incidents
-* View reported incidents
-* Assign incidents to analysts
-* Update incident status
-* Add investigation details
-* Automatic risk calculation
-* Incident severity classification
-* Priority-based incident management
-* Basic audit logging
-* Simple console reports
-* MySQL database integration
+- User authentication
+- Role-based access control
+- Three user roles:
+  - Admin
+  - Security Analyst
+  - User
+- Report cybersecurity incidents
+- View reported incidents
+- Assign incidents to security analysts
+- Update incident status
+- Record investigation findings
+- Automatic risk-score calculation
+- Automatic severity classification
+- Priority-based incident management
+- Basic audit logging
+- Console-based reports
+- MySQL database integration
 
 ---
 
 ## Technologies Used
 
-* **Java 17**
-* **Maven**
-* **JDBC**
-* **MySQL 8**
-* **Git & GitHub**
+| Technology | Purpose |
+|---|---|
+| **Java 17** | Application development |
+| **Maven** | Project and dependency management |
+| **JDBC** | Java–MySQL database connectivity |
+| **MySQL 8** | Persistent data storage |
+| **Git & GitHub** | Version control and repository hosting |
 
 ---
 
@@ -74,53 +77,88 @@ Cybersecurity-Incident-Management-System/
 
 ---
 
-## User Roles
+# System Overview
 
-### User
+The application follows a simple incident-management workflow:
 
-A normal user can:
+```text
+User
+ │
+ │ Reports Incident
+ ▼
+Incident
+ │
+ │ Risk Assessment
+ ▼
+Severity Classification
+ │
+ │ Admin Assignment
+ ▼
+Security Analyst
+ │
+ │ Investigation
+ ▼
+Status Updates
+ │
+ ▼
+Resolution
+```
 
-* Login
-* Report an incident
-* View their reported incidents
-* Logout
+The application is intentionally implemented as a **command-line system** so that it can be executed directly from a terminal without requiring a graphical interface.
 
-### Security Analyst
+---
 
-An analyst can:
+# User Roles
 
-* View assigned incidents
-* Update incident status
-* Add investigation details
-* View high-priority incidents
-* Logout
+## User
 
-### Admin
+A regular user can:
+
+- Log in
+- Report a cybersecurity incident
+- View incidents reported by them
+- Log out
+
+## Security Analyst
+
+A security analyst can:
+
+- View assigned incidents
+- Update incident status
+- Add investigation details
+- View prioritized incidents
+- Log out
+
+## Admin
 
 An administrator can:
 
-* View all incidents
-* Assign incidents to analysts
-* View users
-* View reports
-* View audit logs
-* Logout
+- View all incidents
+- Assign incidents to analysts
+- View registered users
+- View reports
+- View audit logs
+- Log out
+
+Role-specific operations are restricted according to the authenticated user's role.
 
 ---
 
-## Incident Types
+# Incident Types
 
-The system supports five common cybersecurity incident categories:
+The system supports the following incident categories:
 
-* Phishing
-* Malware
-* Unauthorized Access
-* Data Breach
-* Denial of Service
+1. Phishing
+2. Malware
+3. Unauthorized Access
+4. Data Breach
+5. Denial of Service
 
 ---
 
-## Incident Lifecycle
+# Incident Lifecycle
+
+An incident progresses through the following states:
 
 ```text
 REPORTED
@@ -134,32 +172,34 @@ INVESTIGATING
   CLOSED
 ```
 
-The status represents the current stage of an incident.
+The incident status represents its current stage in the investigation process.
 
 ---
 
-## Risk Assessment
+# Risk Assessment
 
-Each incident is evaluated using three factors:
+Each reported incident is evaluated using three factors:
 
-* **Impact** – 1 to 5
-* **Likelihood** – 1 to 5
-* **Exposure** – 1 to 5
+- **Impact** — 1 to 5
+- **Likelihood** — 1 to 5
+- **Exposure** — 1 to 5
 
-The risk score is calculated automatically:
+The system calculates the risk score automatically:
 
 ```text
 Risk Score = Impact × Likelihood × Exposure
 ```
 
-### Severity
+The user does not manually enter the calculated risk score.
+
+## Severity Classification
 
 | Risk Score | Severity |
-| ---------: | -------- |
-|       1–20 | LOW      |
-|      21–50 | MEDIUM   |
-|      51–75 | HIGH     |
-|     76–125 | CRITICAL |
+|---:|---|
+| 1–20 | LOW |
+| 21–50 | MEDIUM |
+| 51–75 | HIGH |
+| 76–125 | CRITICAL |
 
 ### Example
 
@@ -174,17 +214,15 @@ Risk Score = 5 × 4 × 3
 Severity   = HIGH
 ```
 
-The user does not manually enter the risk score or severity.
-
 ---
 
-## Priority Management
+# Priority Management
 
-The project uses Java's **`PriorityQueue`** to prioritize incidents.
+The application uses Java's `PriorityQueue` to organize incidents according to their risk scores.
 
-Incidents with higher risk scores are displayed first.
+Higher-risk incidents receive higher priority.
 
-Example:
+For example:
 
 ```text
 Data Breach          Risk: 100
@@ -195,15 +233,17 @@ Unauthorized Access  Risk: 20
 
 This demonstrates the practical use of:
 
-* Java Collections
-* `PriorityQueue`
-* `Comparator`
+- Java Collections
+- `PriorityQueue`
+- `Comparator`
 
 ---
 
-## Database
+# Database Design
 
-The application uses MySQL with four main tables:
+The application uses MySQL for persistent storage.
+
+The database contains four main tables:
 
 ```text
 users
@@ -212,152 +252,264 @@ investigations
 audit_logs
 ```
 
-### Users
+## Users
 
-Stores user authentication and role information.
+Stores:
 
-### Incidents
+- User information
+- Authentication details
+- User roles
 
-Stores reported cybersecurity incidents, risk information, status, and assignment.
+## Incidents
 
-### Investigations
+Stores:
 
-Stores analyst findings and actions taken during an investigation.
+- Incident details
+- Incident type
+- Risk factors
+- Risk score
+- Severity
+- Status
+- Reporter
+- Assigned analyst
 
-### Audit Logs
+## Investigations
 
-Records important system activities such as incident creation, assignment, status updates, and investigations.
+Stores:
+
+- Investigation details
+- Analyst findings
+- Actions taken
+- Related incident
+
+## Audit Logs
+
+Records important system activities such as:
+
+- Incident creation
+- Incident assignment
+- Status changes
+- Investigation updates
 
 ---
 
-## Database Relationships
+# Database Relationships
+
+The main relationships are:
 
 ```text
-users
+USERS
   │
-  ├─────────── reported_by ────────┐
-  │                                ↓
-  ├─────────── assigned_to ──── incidents
-  │                                │
-  │                                ↓
-  └────────── analyst_id ─── investigations
+  ├── reported_by ────────► INCIDENTS
   │
-  └──────────────────────── audit_logs
+  ├── assigned_to ────────► INCIDENTS
+  │
+  └── analyst_id ─────────► INVESTIGATIONS
+
+INCIDENTS
+  │
+  └───────────────────────► INVESTIGATIONS
+
+USERS
+  │
+  └───────────────────────► AUDIT_LOGS
+```
+
+A user can report multiple incidents, while an analyst can be assigned multiple incidents.
+
+---
+
+# Security Features
+
+The project demonstrates basic secure programming practices appropriate for an academic application:
+
+- Password hashing
+- Role-based access control
+- Input validation
+- Prepared SQL statements
+- Basic audit logging
+- Role-restricted operations
+- Database credentials kept outside the source code
+
+> **Note:** This is an academic project and is not intended to represent a production-grade cybersecurity incident response platform.
+
+---
+
+# Java Concepts Demonstrated
+
+## Object-Oriented Programming
+
+The project demonstrates:
+
+- Classes and objects
+- Encapsulation
+- Constructors
+- Methods
+- Enums
+- Separation of responsibilities
+
+## Collections
+
+The application uses:
+
+- `List`
+- `PriorityQueue`
+- `Comparator`
+
+## Exception Handling
+
+Examples include:
+
+- `SQLException`
+- `NumberFormatException`
+- Input validation
+- Error handling for invalid operations
+
+## JDBC
+
+The project uses:
+
+- `Connection`
+- `PreparedStatement`
+- `ResultSet`
+- `DriverManager`
+- Try-with-resources
+
+## Database Programming
+
+The application demonstrates:
+
+- SQL queries
+- CRUD operations
+- Primary keys
+- Foreign keys
+- Table relationships
+
+---
+
+# Application Flow
+
+```text
+                    ┌──────────────┐
+                    │    LOGIN     │
+                    └──────┬───────┘
+                           │
+              ┌────────────┼────────────┐
+              │            │            │
+              ▼            ▼            ▼
+            USER        ANALYST        ADMIN
+              │            │            │
+              ▼            ▼            ▼
+       Report Incident  Assigned     View All
+       View Incidents   Incidents    Incidents
+                         │            │
+                         ▼            ▼
+                    Investigation   Assign Analyst
+                         │          View Users
+                         ▼          View Reports
+                    Update Status   Audit Logs
 ```
 
 ---
 
-## Security Features
+# Requirements
 
-The project demonstrates basic secure programming practices:
+Install the following before running the application:
 
-* Password hashing
-* Role-based access
-* Input validation
-* Prepared SQL statements
-* Basic audit logging
-* Restricted access to role-specific operations
-* Database credentials kept outside source code
+- **Java Development Kit (JDK) 17 or later**
+- **Maven**
+- **MySQL 8 or later**
+- **Git**
 
-> This is an educational project and is not intended to be a production-grade cybersecurity system.
+The application is designed to run from the **command line** and does not require a GUI framework.
 
 ---
 
-## Java Concepts Demonstrated
+# Installation and Setup
 
-The project demonstrates several important Java concepts:
+## 1. Clone the Repository
 
-### Object-Oriented Programming
+Open a terminal and run:
 
-* Classes and objects
-* Encapsulation
-* Constructors
-* Methods
-* Enums
+```bash
+git clone https://github.com/Mathesh-Chand-K-V/Cybersecurity-Incident-Management-System.git
+```
 
-### Collections
+Move into the project directory:
 
-* `List`
-* `PriorityQueue`
-* `Comparator`
-
-### Exception Handling
-
-* `SQLException`
-* `NumberFormatException`
-* Input validation
-* User-friendly error handling
-
-### JDBC
-
-* `Connection`
-* `PreparedStatement`
-* `ResultSet`
-* `DriverManager`
-* Try-with-resources
-
-### Database Programming
-
-* SQL queries
-* CRUD operations
-* Primary keys
-* Foreign keys
-* Relationships
-
----
-
-## Application Flow
-
-```text
-        ┌──────────────┐
-        │    Login     │
-        └──────┬───────┘
-               │
-       ┌───────┴────────┐
-       │                │
-     USER            ANALYST           ADMIN
-       │                │                │
-       ↓                ↓                ↓
- Report Incident   View Assigned    View All
- View Incidents    Update Status    Assign Analyst
-                   Investigation    Reports
-                   Priority         Audit Logs
+```bash
+cd Cybersecurity-Incident-Management-System
 ```
 
 ---
 
-## Requirements
+## 2. Verify Java Installation
 
-Before running the project, install:
+Run:
 
-* Java 17 or later
-* MySQL 8 or later
-* Maven
-* Git
+```bash
+java -version
+```
+
+The project requires Java 17 or later.
+
+Also verify the Java compiler:
+
+```bash
+javac -version
+```
 
 ---
 
-## Database Setup
+## 3. Verify Maven Installation
 
-### 1. Create the database
+Run:
 
-Open MySQL and run:
+```bash
+mvn -version
+```
+
+Make sure Maven is using Java 17 or later.
+
+---
+
+# Database Setup
+
+## 1. Start MySQL
+
+Make sure the MySQL server is running.
+
+The application expects a MySQL database named:
+
+```text
+cims
+```
+
+## 2. Create the Database
+
+The repository contains the database script:
+
+```text
+database/cims.sql
+```
+
+You can execute it using MySQL:
 
 ```sql
 SOURCE database/cims.sql;
 ```
 
-Or open `cims.sql` in MySQL Workbench and execute it.
+Alternatively, open `database/cims.sql` in **MySQL Workbench** and execute the script.
 
 The script creates the required database tables and sample data.
 
 ---
 
-## Configuration
+# Database Configuration
 
-Configure the MySQL connection in the project.
+Configure the application's MySQL connection using your local database credentials.
 
-Example:
+The expected configuration is:
 
 ```text
 Database: cims
@@ -367,35 +519,45 @@ Username: your_username
 Password: your_password
 ```
 
-Do not commit real database passwords to GitHub.
+Do **not** commit actual database passwords or other sensitive credentials to GitHub.
+
+If the project uses environment variables or a local configuration file, configure those values before running the application.
 
 ---
 
-## Running the Project
+# Build the Project
 
-Clone the repository:
-
-```bash
-git clone https://github.com/Mathesh-Chand-K-V/Cybersecurity-Incident-Management-System.git
-```
-
-Move into the project:
-
-```bash
-cd Cybersecurity-Incident-Management-System
-```
-
-Build the project:
+From the project root directory, run:
 
 ```bash
 mvn clean package
 ```
 
-Run the application from your IDE or using the generated Java classes/JAR.
+If the build succeeds, Maven will compile the project and create the required build output.
 
 ---
 
-## Example Console
+# Run the Application
+
+The application can be launched from the command line or through an IDE.
+
+If the Maven configuration provides an executable JAR, run it using:
+
+```bash
+java -jar target/<generated-jar-name>.jar
+```
+
+Otherwise, run the `Main` class:
+
+```text
+src/main/java/com/cims/Main.java
+```
+
+The application starts with the login menu.
+
+---
+
+# Example Console
 
 ```text
 ========================================
@@ -421,11 +583,15 @@ Login successful.
 5. Logout
 ```
 
+The exact menu options may vary depending on the implementation.
+
 ---
 
-## Sample Workflow
+# Example Workflow
 
-### 1. User reports an incident
+## Step 1 — Report an Incident
+
+A user reports a suspicious email:
 
 ```text
 Title: Suspicious Email
@@ -446,13 +612,31 @@ Risk Score = 4 × 5 × 3
 Severity = HIGH
 ```
 
-### 2. Admin assigns the incident
+The user does not need to manually calculate or enter the severity.
 
-The administrator assigns the incident to a security analyst.
+---
 
-### 3. Analyst investigates
+## Step 2 — Assign the Incident
 
-The analyst records:
+An administrator reviews the incident and assigns it to a security analyst.
+
+```text
+Incident
+   ↓
+Admin
+   ↓
+Security Analyst
+```
+
+The assignment is recorded in the database and audit log.
+
+---
+
+## Step 3 — Investigate
+
+The analyst reviews the assigned incident and records investigation information.
+
+Example:
 
 ```text
 Findings:
@@ -462,7 +646,11 @@ Actions:
 Password reset recommended and malicious link blocked.
 ```
 
-### 4. Analyst updates the status
+---
+
+## Step 4 — Update the Status
+
+The analyst updates the incident as the investigation progresses:
 
 ```text
 REPORTED
@@ -474,56 +662,97 @@ INVESTIGATING
 RESOLVED
 ```
 
----
-
-## Limitations
-
-This project intentionally keeps the scope small.
-
-It does not include:
-
-* GUI
-* Web application
-* REST API
-* Spring Boot
-* AI/ML
-* Real-time monitoring
-* Network packet capture
-* Malware execution
-* Vulnerability scanning
-* SIEM integration
-* Cloud deployment
-* Email/SMS notifications
-* Multi-factor authentication
-* Advanced digital forensics
-
-These features are outside the scope of the academic MVP.
+The relevant changes are recorded by the system.
 
 ---
 
-## Future Enhancements
+# Sample Data Flow
 
-Possible future improvements include:
-
-* Web interface using Spring Boot
-* Improved password hashing using bcrypt or Argon2
-* Multi-factor authentication
-* Email notifications
-* Advanced incident reports
-* Real-time security monitoring
-* SIEM integration
-* Advanced cybersecurity analytics
+```text
+User
+ │
+ │ Report
+ ▼
+Incident
+ │
+ ├── Impact
+ ├── Likelihood
+ └── Exposure
+        │
+        ▼
+   Risk Calculator
+        │
+        ▼
+ Risk Score + Severity
+        │
+        ▼
+      Admin
+        │
+        ▼
+ Assign Analyst
+        │
+        ▼
+    Investigation
+        │
+        ▼
+   Status Updates
+        │
+        ▼
+     Resolution
+```
 
 ---
 
-## Academic Purpose
+# Limitations
 
-This project was developed to demonstrate practical knowledge of:
+The project intentionally keeps the implementation within the scope of a small academic application.
+
+The current version does **not** include:
+
+- GUI
+- Web application
+- REST API
+- Spring Boot
+- AI/ML
+- Real-time security monitoring
+- Network packet capture
+- Malware execution
+- Vulnerability scanning
+- SIEM integration
+- Cloud deployment
+- Email/SMS notifications
+- Multi-factor authentication
+- Advanced digital forensics
+
+These features are outside the scope of the current academic MVP.
+
+---
+
+# Future Enhancements
+
+Potential future improvements include:
+
+- Web interface using Spring Boot
+- Stronger password hashing such as bcrypt or Argon2
+- Multi-factor authentication
+- Email notifications
+- More detailed incident reporting
+- Real-time security monitoring
+- SIEM integration
+- Advanced cybersecurity analytics
+
+These are possible extensions and are not required for the current version.
+
+---
+
+# Academic Purpose
+
+The project applies multiple concepts covered through Java and database programming:
 
 ```text
 Java
   ↓
-OOP
+Object-Oriented Programming
   ↓
 Collections
   ↓
@@ -535,14 +764,52 @@ MySQL
   ↓
 Authentication
   ↓
+Role-Based Access
+  ↓
 Basic Cybersecurity
 ```
 
-The project focuses on implementing these concepts in a **small, understandable, and practical application** rather than building an unnecessarily complex system.
+The goal is to demonstrate these concepts through a **small, executable, command-line application** rather than introducing unnecessary frameworks or features.
 
 ---
 
-## License
+# Submission Notes
+
+This repository is intended to satisfy the project submission requirements by providing:
+
+- A public GitHub repository
+- A `README.md` at the repository root
+- Step-by-step setup instructions
+- Database setup instructions
+- Dependency/build instructions
+- Command-line execution instructions
+- Source code
+- Database script
+- Project configuration files
+
+The repository root URL for submission should follow this format:
+
+```text
+https://github.com/{github-username}/{repo-name}
+```
+
+Do **not** submit URLs containing:
+
+```text
+/tree/main/
+```
+
+or
+
+```text
+/blob/
+```
+
+The repository should be publicly accessible before submission.
+
+---
+
+# License
 
 This project is licensed under the **MIT License**.
 
@@ -550,10 +817,11 @@ See the `LICENSE` file for details.
 
 ---
 
-## Author
+# Author
 
 **Mathesh Chand K V**
 
-B.Tech Computer Science and Engineering
-
+B.Tech Computer Science and Engineering  
 VIT Bhopal University
+
+Academic Project
